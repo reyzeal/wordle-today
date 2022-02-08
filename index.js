@@ -21,8 +21,16 @@ app.get("/", async (req,res) => {
     // //    payload["data"+i] = data[i-1]
     // //}
     // const payload = await axios.get(`https://katla.vercel.app/api/define/${data}`).then(r => r.data)
+    let today = new Date()
+    if(req.query.date){
+        let [d,m,y] = req.query.date.split("-").map(i => parseInt(i))
+        today = new Date(y,m-1,d,0,0,0,0)
+    }
 
-    res.render("index", {data:"Word with these letters: "+[...new Set(WordleToday().toUpperCase().split("").sort())].join(",")} )
+    res.render("index", {
+        data:"Word with these letters: "+[...new Set(WordleToday(today).toUpperCase().split("").sort())].join(","),
+        tanggal: `${today.getDate()}-${today.getUTCMonth()}-${today.getFullYear()}`,
+    } )
 })
 
 app.listen(process.env.port || 3000, "0.0.0.0", () => {})

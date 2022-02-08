@@ -51,5 +51,14 @@ wordle
     </div>
 
 </div>
+    <script>
+        let url = new URL(window.location.href)
+        let x = new Date()
+        url.searchParams.set("date", `${x.getDate()}-${x.getMonth()+1}-${x.getFullYear()}`)
+        if(url.toString() !== window.location.href){
+            window.location.href = url.toString()
+        }
+
+    </script>
 </body>
 </html>
